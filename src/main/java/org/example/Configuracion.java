@@ -107,6 +107,13 @@ public class Configuracion extends Application {
         contenedor.setAlignment(Pos.CENTER);
         // Escena para mostrar el contenido de la ventana
         Scene escena = new Scene(contenedor,500,500);
+        escena.setOnKeyReleased(event -> {
+            String tecla = event.getCode().toString();
+            TextField textField = (TextField) escena.getFocusOwner();
+            if(textField != null){
+                textField.setText(tecla);
+            }
+        });
         stage.setScene(escena);
         stage.setTitle("Snake Game - Adrián Rodriguez Garcia");
         stage.show();
