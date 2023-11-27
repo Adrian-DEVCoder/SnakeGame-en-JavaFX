@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -20,6 +21,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 public class SnakeGame extends Application {
     private static final int tamanoSerpiente = 20;
@@ -72,31 +74,41 @@ public class SnakeGame extends Application {
         Scene escena = new Scene(panel);
         // Color de fondo ventana
         panel.setStyle("-fx-background-color: #26205C");
+        escena.setOnKeyReleased(keyEvent -> {
+            if (!direccionCambiada) {
+                List<String> teclas = obtenerTeclasConfiguracion();
 
-        // Listener para las flechas del teclado para realizar los movimientos
-        escena.setOnKeyPressed(keyEvent -> {
-            if(!direccionCambiada){
-                switch (keyEvent.getCode()){
-                    case UP:
-                        if(direccion != Direccion.DOWN)
-                            direccion = Direccion.UP;
-                        break;
-                    case DOWN:
-                        if(direccion != Direccion.UP)
-                            direccion = Direccion.DOWN;
-                        break;
-                    case LEFT:
-                        if(direccion != Direccion.RIGHT)
-                            direccion = Direccion.LEFT;
-                        break;
-                    case RIGHT:
-                        if(direccion != Direccion.LEFT)
-                            direccion = Direccion.RIGHT;
-                        break;
+                String arribaT = teclas.get(0);
+                String izquierdaT = teclas.get(1);
+                String derechaT = teclas.get(2);
+                String abajoT = teclas.get(3);
+
+                String teclaPresionada = keyEvent.getCode().toString();
+
+                boolean movValido = true;
+
+                if ((direccion == Direccion.UP && teclaPresionada.equals(abajoT)) ||
+                        (direccion == Direccion.DOWN && teclaPresionada.equals(arribaT)) ||
+                        (direccion == Direccion.LEFT && teclaPresionada.equals(derechaT)) ||
+                        (direccion == Direccion.RIGHT && teclaPresionada.equals(izquierdaT))) {
+                    movValido = false;
                 }
-                direccionCambiada = true;
+
+                if (movValido) {
+                    if (teclaPresionada.equals(arribaT)) {
+                        direccion = Direccion.UP;
+                    } else if (teclaPresionada.equals(abajoT)) {
+                        direccion = Direccion.DOWN;
+                    } else if (teclaPresionada.equals(izquierdaT)) {
+                        direccion = Direccion.LEFT;
+                    } else if (teclaPresionada.equals(derechaT)) {
+                        direccion = Direccion.RIGHT;
+                    }
+                    direccionCambiada = true;
+                }
             }
         });
+
 
         // Titulo de la ventana y set de la escena a mostrar
         stage.setScene(escena);
@@ -276,6 +288,25 @@ public class SnakeGame extends Application {
         } catch (IOException e) {
             System.out.println("No se ha podido crear el archivo.");
         }
+    }
+
+    private List<String> obtenerTeclasConfiguracion(){
+        Properties properties = new Properties();
+        List<String> teclasAsignadas = new ArrayList<>();
+        try(InputStream is = new FileInputStream("configuracion.properties")){
+            properties.load(is);
+            String arriba = properties.getProperty("teclaArriba");
+            String izquierda = properties.getProperty("teclaIzquierda");
+            String derecha = properties.getProperty("teclaDerecha");
+            String abajo = properties.getProperty("teclaAbajo");
+            teclasAsignadas.add(arriba);
+            teclasAsignadas.add(izquierda);
+            teclasAsignadas.add(derecha);
+            teclasAsignadas.add(abajo);
+                    } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return teclasAsignadas;
     }
 
 }
