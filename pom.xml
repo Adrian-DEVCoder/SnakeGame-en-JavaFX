@@ -30,5 +30,31 @@
             <version>2.10.1</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>exec-application</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.example.Main</mainClass>
+                            <arguments>
+                                <argument>--module-path</argument>
+                                <argument>./javafx-sdk-17.0.9/lib</argument>
+                                <argument>--add-modules</argument>
+                                <argument>java.base,javafx.controls,javafx.fxml</argument>
+                            </arguments>
+                            <classpathScope>compile</classpathScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
