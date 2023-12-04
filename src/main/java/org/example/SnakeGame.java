@@ -136,7 +136,7 @@ public class SnakeGame extends Application {
 
             @Override
             public void handle(long now) {
-                if (now - ultimaActualizacion >= 60_000_000) {
+                if (now - ultimaActualizacion >= 90_000_000) {
                     ultimaActualizacion = now;
                     if (!derrota) {
                         direccionCambiada = false;
