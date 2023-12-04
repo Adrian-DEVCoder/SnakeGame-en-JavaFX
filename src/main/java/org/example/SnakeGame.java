@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -28,7 +28,6 @@ public class SnakeGame extends Application {
     private static final int ancho = 25;
     private static final int alto = 25;
     private Direccion direccion = Direccion.RIGHT;
-    private Canvas tablero;
     private List<Position> serpiente = new ArrayList<>();
     private boolean direccionCambiada;
     private boolean derrota;
@@ -49,25 +48,23 @@ public class SnakeGame extends Application {
     public void start(Stage stage) {
         // Inicializamos el tablero, textos de marcadores, escenas, listener para las teclas y movimientos
         // ademas iniciamos el juego y el bucle principal de este.
-        tablero = new Canvas(ancho * tamanoSerpiente, alto * tamanoSerpiente);
+        Canvas tablero = new Canvas(ancho * tamanoSerpiente, alto * tamanoSerpiente);
         // Text para el marcador con la puntuacion
         textoMarcador = new Text();
-        textoMarcador.setX(10);
-        textoMarcador.setY(10);
         textoMarcador.setFill(Color.WHITE);
         textoMarcador.setFont(Font.font("verdana", FontPosture.REGULAR,15));
         actualizarMarcador();
         // Text para el marcador con la puntuacion mas alta
         maximaPuntuacion = new Text();
-        maximaPuntuacion.setX(5);
-        maximaPuntuacion.setY(5);
         maximaPuntuacion.setFill(Color.WHITE);
         maximaPuntuacion.setFont(Font.font("verdana", FontPosture.REGULAR,15));
         actualizarPuntuacionMaxima();
         // Grid para colocar los texts
         GridPane gridPane = new GridPane();
         gridPane.addRow(0, textoMarcador);
+        GridPane.setMargin(textoMarcador, new Insets(0, 60, 0, 0));
         gridPane.addColumn(1, maximaPuntuacion);
+        GridPane.setMargin(maximaPuntuacion, new Insets(0, 0, 0, 20));
         // Set de escena, paneles y contextos
         GraphicsContext contextTablero = tablero.getGraphicsContext2D();
         StackPane panel = new StackPane(tablero,gridPane);

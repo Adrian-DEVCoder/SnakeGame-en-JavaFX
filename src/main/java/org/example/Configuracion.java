@@ -24,7 +24,7 @@ public class Configuracion extends Application {
         panelInicio.setStyle("-fx-background-color: #26205C");
         // Boton para volver al menu principal
         Button btnVolver = new Button();
-        Image imagenBoton = new Image("file:volver.png");
+        Image imagenBoton = new Image("file:./src/imagenes/volver.png");
         ImageView conImagenBoton = new ImageView(imagenBoton);
         conImagenBoton.setPreserveRatio(true);
         conImagenBoton.setFitWidth(20);

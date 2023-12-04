@@ -27,7 +27,7 @@ public class Estadisticas extends Application {
     public void start(Stage stage) {
         // Boton para volver al menu principal
         Button btnVolver = new Button();
-        Image imagenBoton = new Image("file:volver.png");
+        Image imagenBoton = new Image("file:./src/imagenes/volver.png");
         ImageView conImagenBoton = new ImageView(imagenBoton);
         conImagenBoton.setPreserveRatio(true);
         conImagenBoton.setFitWidth(20);

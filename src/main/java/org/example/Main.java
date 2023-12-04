@@ -26,7 +26,7 @@ public class Main extends Application {
         panelInicio.setStyle("-fx-background-color: #26205C"); // Establece el color de fondo del StackPane
 
         // Carga y configura la imagen del logotipo del juego
-        Image logo = new Image("file:logoSnake.gif");
+        Image logo = new Image("file:./src/imagenes/logoSnake.gif");
         ImageView contenedorImagen = new ImageView(logo);
         contenedorImagen.setFitWidth(320); // Establece el ancho de la imagen
         contenedorImagen.setPreserveRatio(true); // Conserva la proporción original de la imagen
