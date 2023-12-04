@@ -18,6 +18,7 @@ import javafx.util.Duration;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main extends Application {
+    private boolean ttJugando = false;
 
     @Override
     public void start(Stage pStage) {
@@ -62,19 +63,30 @@ public class Main extends Application {
         // Acciones al hacer clic en los botones
         btnJugar.setOnAction(event -> {
             String usuario = txfUsuario.getText();
-            if (!usuario.isEmpty()) {
+            if (!usuario.isEmpty() && !ttJugando) { // Agregar una condición para comprobar si ya se está ejecutando la animación
+                ttJugando = true; // Variable para controlar el estado de la animación
                 iniciarJuego(pStage, usuario);
-            } else {
+            } else if (!ttJugando) {
+                // Ajustes visuales si el campo de texto está vacío
                 txfUsuario.setStyle("-fx-border-color: red; -fx-background-color: #26205C; -fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 15px");
+                // Guardar la posición original del TextField
+                double originalX = txfUsuario.getTranslateX();
                 // Crear una animación de translación horizontal para el campo de texto
                 TranslateTransition tt = new TranslateTransition(Duration.millis(100), txfUsuario);
                 tt.setByX(10); // Mover el campo de texto 10 píxeles a la derecha
-                tt.setCycleCount(6); // Repetir la animación 6 veces
+                tt.setCycleCount(3); // Repetir la animación 3 veces
                 tt.setAutoReverse(true); // Hacer que la animación se revierta automáticamente
+                // Evento al finalizar la animación para restablecer la posición original del TextField
+                tt.setOnFinished(e -> {
+                    txfUsuario.setTranslateX(originalX);
+                    ttJugando = false; // Restablecer la variable de control al finalizar la animación
+                });
                 // Reproducir la animación
                 tt.play();
+                ttJugando = true; // Marcar que la animación está en curso
             }
         });
+
 
         btnEstadisticas.setOnAction(event -> iniciarEstadisticas(pStage));
         btnConfiguracion.setOnAction(event -> iniciarConfiguracion(pStage));

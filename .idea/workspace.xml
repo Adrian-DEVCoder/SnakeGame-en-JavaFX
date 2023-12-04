@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c82285c5-c4bf-435c-a40e-3811718ac2a8" name="Changes" comment="Subiendo Imagenes para actualizar el funcionamiento">
+    <list default="true" id="c82285c5-c4bf-435c-a40e-3811718ac2a8" name="Changes" comment="Actualizacion de las imagenes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuracion.properties" beforeDir="false" afterPath="$PROJECT_DIR$/configuracion.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/marcadores.json" beforeDir="false" afterPath="$PROJECT_DIR$/marcadores.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Configuracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Configuracion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Estadisticas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Estadisticas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imagenes/defecto.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/imagenes/defecto.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SnakeGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SnakeGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Configuracion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Configuracion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Derrota.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Derrota.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Direccion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Direccion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Estadisticas$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Estadisticas$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Estadisticas.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Estadisticas.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/RegistroPuntuacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/RegistroPuntuacion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/SnakeGame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/SnakeGame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/SnakeGame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/SnakeGame$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/SnakeGame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/SnakeGame$3.class" afterDir="false" />
@@ -79,7 +69,7 @@
       <workItem from="1701250140658" duration="718000" />
       <workItem from="1701250916215" duration="428000" />
       <workItem from="1701417258858" duration="601000" />
-      <workItem from="1701680769697" duration="1409000" />
+      <workItem from="1701680769697" duration="2221000" />
     </task>
     <task id="LOCAL-00001" summary="Subiendo Imagenes para actualizar el funcionamiento">
       <option name="closed" value="true" />
@@ -89,7 +79,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701680867465</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Actualizacion de las imagenes">
+      <option name="closed" value="true" />
+      <created>1701682331247</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701682331247</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,6 +96,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Subiendo Imagenes para actualizar el funcionamiento" />
-    <option name="LAST_COMMIT_MESSAGE" value="Subiendo Imagenes para actualizar el funcionamiento" />
+    <MESSAGE value="Actualizacion de las imagenes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion de las imagenes" />
   </component>
 </project>
