@@ -1,3 +1,18 @@
 [
-
+  {
+    "nombreUsuario": "a",
+    "puntuacion": 11
+  },
+  {
+    "nombreUsuario": "a",
+    "puntuacion": 6
+  },
+  {
+    "nombreUsuario": "as",
+    "puntuacion": 5
+  },
+  {
+    "nombreUsuario": "a",
+    "puntuacion": 2
+  }
 ]

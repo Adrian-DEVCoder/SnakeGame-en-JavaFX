@@ -38,6 +38,8 @@ public class SnakeGame extends Application {
     private int puntuacion = 0;
     private String nombreUsuario;
 
+    private boolean reedibuja = true;
+
     public SnakeGame(String nombreUsuario){
         this.nombreUsuario = nombreUsuario;
     }
@@ -128,17 +130,15 @@ public class SnakeGame extends Application {
     }
 
     // Metodo para iniciar el bucle principal del juego
-    private void iniciarBuclePrincipal(GraphicsContext gc,Stage stage) {
+    private void iniciarBuclePrincipal(GraphicsContext gc, Stage stage) {
         new AnimationTimer() {
-
             long ultimaActualizacion = 0;
 
-            // Metodo para la actualizacion del juego
             @Override
             public void handle(long now) {
-                if(now - ultimaActualizacion >= 100_000_000){
+                if (now - ultimaActualizacion >= 100_000_000) {
                     ultimaActualizacion = now;
-                    if(!derrota){
+                    if (!derrota) {
                         direccionCambiada = false;
                         try {
                             actualizar(stage);
@@ -146,13 +146,13 @@ public class SnakeGame extends Application {
                             throw new RuntimeException(e);
                         }
                         dibujar(gc);
+                        reedibuja = true; // Marcar que se necesita redibujar en el próximo ciclo
                     } else {
                         stop();
                     }
                 }
             }
         }.start();
-
     }
 
     // Metodo para iniciar el juego
@@ -175,9 +175,9 @@ public class SnakeGame extends Application {
     }
 
     // Metodo para actualizar dentro del juego (movimientos, tamaño, derrota)
-    private void actualizar(Stage stage) throws Exception {
+    private void actualizar(Stage stage) {
         Position cabeza = serpiente.get(0).copiar();
-        switch (direccion){
+        switch (direccion) {
             case UP:
                 cabeza.y--;
                 break;
@@ -191,47 +191,48 @@ public class SnakeGame extends Application {
                 cabeza.x++;
                 break;
         }
-        // Condicion para cuando la cabeza pase por la comida que aumente el tamaño de la serpiente
-        if(cabeza.equals(comida)){
-            serpiente.add(0, cabeza);
+
+        // Verificar si la cabeza choca consigo misma o con los límites del tablero
+        if (cabeza.x < 0 || cabeza.x >= ancho || cabeza.y < 0 || cabeza.y >= alto || serpiente.contains(cabeza)) {
+            derrota = true;
+            try {
+                iniciarDerrota(stage, marcador, derrota);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        serpiente.add(0, cabeza);
+
+        // Verificar si la serpiente come la comida
+        if (cabeza.equals(comida)) {
             marcador++;
-            if(marcador > puntuacion){
+            if (marcador > puntuacion) {
                 puntuacion = marcador;
                 actualizarPuntuacionMaxima();
             }
             actualizarMarcador();
             spawnComida();
         } else {
-            // Condicion para cuando la serpiente choca con las colisiones
-            if(cabeza.x < 0 || cabeza.x >= ancho || cabeza.y < 0 || cabeza.y >= alto){
-                derrota = true;
-                iniciarDerrota(stage,marcador,derrota);
-                return;
-            }
-
-            // Condicion para cuando la serpiente choca con su propio cuerpo
-            for(Position cuerpo : serpiente){
-                if(cabeza.equals(cuerpo)){
-                    derrota = true;
-                    iniciarDerrota(stage,marcador,derrota);
-                    return;
-                }
-            }
-
             serpiente.remove(serpiente.size() - 1);
-            serpiente.add(0, cabeza);
-
         }
     }
 
-    // Metodo para dibujar la comida y la serpiente
+
     private void dibujar(GraphicsContext gc) {
-        gc.clearRect(0,0,ancho * tamanoSerpiente, alto * tamanoSerpiente);
-        gc.setFill(Color.RED);
-        gc.fillOval(comida.x * tamanoSerpiente, comida.y * tamanoSerpiente, tamanoSerpiente, tamanoSerpiente);
-        gc.setFill(Color.valueOf("#24694D"));
-        for(Position cuerpo : serpiente){
-            gc.fillOval(cuerpo.x * tamanoSerpiente, cuerpo.y * tamanoSerpiente, tamanoSerpiente, tamanoSerpiente);
+        if (reedibuja) {
+            gc.clearRect(0, 0, ancho * tamanoSerpiente, alto * tamanoSerpiente);
+            gc.setFill(Color.RED);
+            gc.fillOval(comida.x * tamanoSerpiente, comida.y * tamanoSerpiente, tamanoSerpiente, tamanoSerpiente);
+            gc.setFill(Color.valueOf("#24694D"));
+
+            // Dibujar el cuerpo de la serpiente como un rectángulo continuo
+            for (int i = 0; i < serpiente.size(); i++) {
+                gc.fillOval(serpiente.get(i).x * tamanoSerpiente, serpiente.get(i).y * tamanoSerpiente, tamanoSerpiente, tamanoSerpiente);
+            }
+
+            reedibuja = false; // Marcar que ya no se necesita redibujar en este ciclo
         }
     }
 
