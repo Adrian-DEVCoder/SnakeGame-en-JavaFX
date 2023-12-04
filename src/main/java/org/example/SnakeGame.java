@@ -18,17 +18,17 @@ import javafx.stage.Stage;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class SnakeGame extends Application {
     private static final int tamanoSerpiente = 20;
     private static final int ancho = 25;
     private static final int alto = 25;
+    private static final int delay = 100_000_000;
+    private enum Direccion { UP, DOWN, LEFT, RIGHT }
     private Direccion direccion = Direccion.RIGHT;
     private List<Position> serpiente = new ArrayList<>();
+    private int foodX, foodY;
     private boolean direccionCambiada;
     private boolean derrota;
     private Position comida;
@@ -136,7 +136,7 @@ public class SnakeGame extends Application {
 
             @Override
             public void handle(long now) {
-                if (now - ultimaActualizacion >= 90_000_000) {
+                if (now - ultimaActualizacion >= delay) {
                     ultimaActualizacion = now;
                     if (!derrota) {
                         direccionCambiada = false;
@@ -169,9 +169,9 @@ public class SnakeGame extends Application {
 
     // Metodo para spawnear comida
     private void spawnComida(){
-        int x = (int) (Math.random() * ancho);
-        int y = (int) (Math.random() * alto);
-        comida = new Position(x,y);
+        foodX = (int) (Math.random() * ancho);
+        foodY = (int) (Math.random() * alto);
+        comida = new Position(foodX,foodY);
     }
 
     // Metodo para actualizar dentro del juego (movimientos, tamaño, derrota)
