@@ -2,6 +2,7 @@ package org.example;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.Stack;
 
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -44,21 +47,30 @@ public class Main extends Application {
         txfUsuario.setMaxWidth(200);
 
         // Creación de botones "Jugar" y "Salir del Juego"
+        Button btnConfiguracion = new Button();
         Button btnJugar = new Button("Jugar");
         Button btnEstadisticas = new Button("Estadísticas");
-        Button btnConfiguracion = new Button("Configuración");
+        Button btnControles = new Button("Controles");
         Button btnCerrar = new Button("Cerrar Juego");
+
+        // Ajustes del boton de configuracion
+        Image ajustes = new Image("file:./src/imagenes/ajuste.png");
+        ImageView conAjustes = new ImageView(ajustes);
+        btnConfiguracion.setGraphic(conAjustes);
 
         // Estilo de los botones
         String estiloBotones = "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 15px;";
         btnJugar.setStyle(estiloBotones);
         btnEstadisticas.setStyle(estiloBotones);
-        btnConfiguracion.setStyle(estiloBotones);
+        btnControles.setStyle(estiloBotones);
         btnCerrar.setStyle(estiloBotones);
+        btnConfiguracion.setStyle("-fx-background-color: transparent");
         btnJugar.setPrefWidth(150);
         btnEstadisticas.setPrefWidth(150);
-        btnConfiguracion.setPrefWidth(150);
+        btnControles.setPrefWidth(150);
         btnCerrar.setPrefWidth(150);
+        btnConfiguracion.setPrefWidth(80);
+        btnConfiguracion.setPrefHeight(80);
 
         // Acciones al hacer clic en los botones
         btnJugar.setOnAction(event -> {
@@ -87,8 +99,8 @@ public class Main extends Application {
             }
         });
 
-
         btnEstadisticas.setOnAction(event -> iniciarEstadisticas(pStage));
+        btnControles.setOnAction(event -> iniciarControles(pStage));
         btnConfiguracion.setOnAction(event -> iniciarConfiguracion(pStage));
         btnCerrar.setOnAction(actionEvent -> pStage.close()); // Cierra la ventana al hacer clic en "Salir del Juego"
 
@@ -97,7 +109,7 @@ public class Main extends Application {
         botones.setAlignment(Pos.CENTER); // Centrar los botones horizontalmente
         botones.setPadding(new Insets(20,20,20,20)); // Añadir relleno alrededor de los botones
         // Organizar los botones de configuracion y cerrar con un espacio de 20 entre ellos
-        HBox botonesInferior = new HBox(20,btnConfiguracion,btnCerrar);
+        HBox botonesInferior = new HBox(20,btnControles,btnCerrar);
         botonesInferior.setAlignment(Pos.CENTER);
         botonesInferior.setPadding(new Insets(5,20,5,20));
         // Organizar el boton de cerrar juego horizontalmente debajo de los otros dos botones
@@ -105,22 +117,26 @@ public class Main extends Application {
         cuerpo.setAlignment(Pos.CENTER);
         botones.setPadding(new Insets(40,20,10,20));
         // VBox para contener la imagen y los botones en la parte superior
-        VBox vboxSuperior = new VBox(20, contenedorImagen);
+        VBox vboxSuperior = new VBox(20,btnConfiguracion,contenedorImagen);
         vboxSuperior.setAlignment(Pos.TOP_CENTER); // Centrar elementos verticalmente
-        vboxSuperior.setPadding(new Insets(60, 20, 40, 20)); // Añadir relleno alrededor del VBox superior
+        vboxSuperior.setPadding(new Insets(20, 20, 40, 20)); // Añadir relleno alrededor del VBox superior
 
-        // Alineación del VBox superior en el StackPane
-        StackPane.setAlignment(vboxSuperior, Pos.CENTER);
+        VBox supBoton = new VBox(btnConfiguracion);
+        supBoton.setAlignment(Pos.TOP_RIGHT);
 
-        // VBox para el layout principal que contiene la imagen y los botones
-        VBox layoutInicio = new VBox(5, vboxSuperior, cuerpo);
-        layoutInicio.setBackground(new Background(new BackgroundFill(Color.web("#26205C"), CornerRadii.EMPTY, Insets.EMPTY))); // Establecer el color de fondo del VBox principal
+
+        // Organizar los elementos en el StackPane
+        StackPane.setAlignment(supBoton, Pos.TOP_RIGHT); // Alinear el VBox supBoton en la esquina superior derecha
+
+        // Crear el VBox layoutInicio y agregar todos los elementos
+        VBox layoutInicio = new VBox(supBoton, vboxSuperior, cuerpo);
+        layoutInicio.setBackground(new Background(new BackgroundFill(Color.web("#26205C"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         // Crear la escena y configurarla en el Stage
-        Scene escenaInicio = new Scene(layoutInicio, 500, 500); // Crear una escena con el VBox principal
-        pStage.setScene(escenaInicio); // Establecer la escena en el Stage
-        pStage.setTitle("Snake Game - Adrian Rodriguez Garcia"); // Establecer el título del Stage
-        pStage.show(); // Mostrar el Stage con la escena configurada
+        Scene escenaInicio = new Scene(layoutInicio, 500, 500);
+        pStage.setScene(escenaInicio);
+        pStage.setTitle("Snake Game - Adrian Rodriguez Garcia");
+        pStage.show();
     }
 
     private void iniciarJuego(Stage pStage,String usuario) {
@@ -133,8 +149,14 @@ public class Main extends Application {
         estadisticas.start(stage);
     }
 
+    private void iniciarControles(Stage stage) {
+        Controles controles = new Controles();
+        controles.start(stage);
+    }
+
     private void iniciarConfiguracion(Stage stage) {
         Configuracion configuracion = new Configuracion();
         configuracion.start(stage);
     }
+
 }
